@@ -1,0 +1,26 @@
+[Unit]
+Description=Digital Ocean Dynamic DNS updater
+
+[Service]
+Type=oneshot
+
+; Dry-run mode
+;Environment=DO_DYN_DRY_RUN=1
+; URL to external service that returns the IP address
+Environment=DO_DYN_EXT_IP_URL=
+; Regex to parse response from external service
+;Environment=DO_DYN_IP_REGEX=\\b(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})\\b
+; Digital Ocean API token to use
+Environment=DO_DYN_API_TOKEN=
+; Domain in Digital Ocean to use (must pre-exist in Digital Ocean domains)
+Environment=DO_DYN_DO_DOMAIN=
+; DNS record name update A record for (must pre-exist in Digital Ocean domain)
+Environment=DO_DYN_RECORD_NAME=
+; TTL setting to use for domain record
+;Environment=DO_DYN_DNS_TTL=60
+
+TimeoutStartSec=600
+ExecStart=/usr/local/bin/do-dyndns
+
+[Install]
+WantedBy=timers.target
