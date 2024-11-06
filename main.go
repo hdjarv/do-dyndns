@@ -91,9 +91,8 @@ func main() {
 		if isDryRun {
 			logMsg = "[DRY-RUN MODE] " + logMsg
 		} else {
-			dr, _, err := doClient.Domains.EditRecord(ctx, domain, doRecord.ID, &godo.DomainRecordEditRequest{Data: extIp, TTL: ttl})
+			_, _, err := doClient.Domains.EditRecord(ctx, domain, doRecord.ID, &godo.DomainRecordEditRequest{Data: extIp, TTL: ttl})
 			checkErr(err, fmt.Sprintf("Error: from Digital Ocean API: %s", err), 5)
-			fmt.Println(dr)
 		}
 		fmt.Println(logMsg)
 	}
